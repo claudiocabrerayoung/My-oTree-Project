@@ -7,13 +7,13 @@ Your app description
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'trust'
+    NAME_IN_URL = 'myTrustGame'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     TRUSTOR_ROLE = 'Trustor'
     TRUSTEE_ROLE = 'Trustee'
     NUM_ROUNDS = 2
-    INSTRUCTIONS_TEMPLATE = 'myTrusteGame/instructions.html'
+    INSTRUCTIONS_TEMPLATE = 'myTrustGame/instructions.html'
     # Initial amount allocated to each player
     ENDOWMENT = cu(100)
     MULTIPLIER = 3
