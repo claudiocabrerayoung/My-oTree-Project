@@ -9,10 +9,9 @@ Your app description
 class C(BaseConstants):
     NAME_IN_URL = 'myTrustGame'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
     TRUSTOR_ROLE = 'Trustor'
     TRUSTEE_ROLE = 'Trustee'
-    NUM_ROUNDS = 2
+    NUM_ROUNDS = 1
     INSTRUCTIONS_TEMPLATE = 'myTrustGame/instructions.html'
     # Initial amount allocated to each player
     ENDOWMENT = cu(100)
@@ -48,15 +47,15 @@ def creating_session(subsession: Subsession):
 
 #On Groups
 def sent_back_amount_max(group: Group):
-    return group.sent_amount + C.MULTIPLIER
+    return group.sent_amount * C.MULTIPLIER
 
-def set_payoffs(group:Group):
-    p1 = group.get_player_by_role("Trustor")
-    p2 = group.get_player_by_role("Trustee")
-    p1.payoff = C.ENDOWMENT = group.sent_amount + group.sent_back_amount
+
+def set_payoffs(group: Group):
+    p1 = group.get_player_by_id(1)
+    p2 = group.get_player_by_id(2)
+    p1.payoff = C.ENDOWMENT - group.sent_amount + group.sent_back_amount
     p2.payoff = group.sent_amount * C.MULTIPLIER - group.sent_back_amount
 
-# On Players
 
 # PAGES
 class Introduction(Page):
@@ -64,42 +63,40 @@ class Introduction(Page):
 
 
 class Send(Page):
-    """
-    This page is only for P1
-    P1 sends amount (all, some or none) to P2
+    """This page is only for P1
+    P1 sends amount (all, some, or none) to P2
     This amount is tripled by experimenter,
-    e.g. if sent amount by P1 is 5, amount received by P2 is 15
-    """
+    i.e if sent amount by P1 is 5, amount received by P2 is 15"""
 
-    form_model = "group"
-    form_fields = ["sent_amount"]
+    form_model = 'group'
+    form_fields = ['sent_amount']
 
     @staticmethod
     def is_displayed(player: Player):
         return player.id_in_group == 1
+
 
 class SendBackWaitPage(WaitPage):
     pass
 
 
 class SendBack(Page):
-    """"
-    This page is only for P2
-    P2 sends back some amount (of the tripled amount received) to P1
-    """
-    form_model = "group"
-    form_fields = ["sent_back_amount"]
+    """This page is only for P2
+    P2 sends back some amount (of the tripled amount received) to P1"""
+
+    form_model = 'group'
+    form_fields = ['sent_back_amount']
 
     @staticmethod
-    def is_displayer(player: Player):
+    def is_displayed(player: Player):
         return player.id_in_group == 2
-    
+
     @staticmethod
     def vars_for_template(player: Player):
         group = player.group
 
         tripled_amount = group.sent_amount * C.MULTIPLIER
-        return dict(tripled_amount = tripled_amount)
+        return dict(tripled_amount=tripled_amount)
 
 
 class ResultsWaitPage(WaitPage):
@@ -107,15 +104,14 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-    """
-    This page displays the earnings of each player
-    """
+    """This page displays the earnings of each player"""
 
     @staticmethod
     def vars_for_template(player: Player):
         group = player.group
 
-        return dict(tripled_amount = group.sent_amount * C.MULTIPLIER)
+        return dict(tripled_amount=group.sent_amount * C.MULTIPLIER)
+
 
 page_sequence = [
     Introduction,
@@ -123,5 +119,5 @@ page_sequence = [
     SendBackWaitPage,
     SendBack,
     ResultsWaitPage,
-    Results
+    Results,
 ]

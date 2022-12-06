@@ -2,37 +2,54 @@
 {{ block content }}
 
     {{ if player.id_in_group == 1 }}
-        <p>
-            You chose to send participant B {{ group.sent_amount }}.
-            Participant B returned {{ group.sent_back_amount }}.
-        </p>
-        <p>
-            You were initially endowed with {{ C.ENDOWMENT }},
-            chose to send {{ group.sent_amount }},
-            received {{ group.sent_back_amount }}
-            thus you now have:
-            {{ C.ENDOWMENT }}-{{ group.sent_amount }}+{{ group.sent_back_amount }}=<strong>{{ player.payoff }}</strong>
-        </p>
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-0lax{text-align:left;vertical-align:top}
+            </style>
+            <table class="tg">
+            <thead>
+            <tr>
+                <th class="tg-0lax">Round</th>
+                <th class="tg-0lax">{{player.round_number}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-0lax">Your Payoff</td>
+                <td class="tg-0lax">{{player.payoff}}</td>
+            </tr>
+            </tbody>
+            </table>
     {{ else }}
-        <p>
-            Participant A sent you {{ group.sent_amount }}.
-            They were tripled so you received {{ tripled_amount }}.
-            You chose to return {{ group.sent_back_amount }}.
-        </p>
-        <p>
-            You received {{ tripled_amount }},
-            chose to return {{ group.sent_back_amount }}
-            thus you now have:
-            ({{ tripled_amount }})-({{ group.sent_back_amount }})=<strong>{{ player.payoff }}</strong>
-        </p>
-        .
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;}
+            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-0lax{text-align:left;vertical-align:top}
+            </style>
+            <table class="tg">
+            <thead>
+            <tr>
+                <th class="tg-0lax">Round</th>
+                <th class="tg-0lax">{{player.round_number}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-0lax">Your Payoff</td>
+                <td class="tg-0lax">{{player.payoff}}</td>
+            </tr>
+            </tbody>
+            </table>
     {{ endif }}
-
+    
     <p>{{ next_button }}</p>
 
     {{ include C.INSTRUCTIONS_TEMPLATE }}
-
 {{ endblock }}
-
-
-
