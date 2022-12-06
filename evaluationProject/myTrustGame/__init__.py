@@ -17,18 +17,24 @@ class C(BaseConstants):
     # Initial amount allocated to each player
     ENDOWMENT = cu(100)
     MULTIPLIER = 3
-    
+
 class Subsession(BaseSubsession):
     pass
 
 
 class Group(BaseGroup):
-    pass
+    sent_amount = models.CurrencyField(
+    min = 0,
+    max = C.ENDOWMENT,
+    doc = """"Amount sent by P1""",
+    label = "Please enter an amount from 0 to 100:",    
+    )
+    sent_back_amount = models.CurrencyField(doc = """"Amount sent back by P2""", min = cu(0))
 
 
 class Player(BasePlayer):
-    pass
-
+    name = models.StringField(label = "Your name:")
+    age = models.IntegerField(label = "Your age:")
 
 # PAGES
 class MyPage(Page):
