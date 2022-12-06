@@ -23,8 +23,10 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     sent_amount = models.CurrencyField(
-    min = 0,
-    max = C.ENDOWMENT,
+    widget=widgets.RadioSelect,
+    choices= list(range(0, int(C.ENDOWMENT) + 1, 10)),
+    #min = 0,
+    #max = C.ENDOWMENT,
     doc = """"Amount sent by P1""",
     label = "Please enter an amount from 0 to 100:",    
     )
