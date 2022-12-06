@@ -59,16 +59,69 @@ def set_payoffs(group:Group):
 # On Players
 
 # PAGES
-class MyPage(Page):
+class Introduction(Page):
     pass
+
+
+class Send(Page):
+    """
+    This page is only for P1
+    P1 sends amount (all, some or none) to P2
+    This amount is tripled by experimenter,
+    e.g. if sent amount by P1 is 5, amount received by P2 is 15
+    """
+
+    form_model = "group"
+    form_fields = ["sent_amount"]
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.id_in_group == 1
+
+class SendBackWaitPage(WaitPage):
+    pass
+
+
+class SendBack(Page):
+    """"
+    This page is only for P2
+    P2 sends back some amount (of the tripled amount received) to P1
+    """
+    form_model = "group"
+    form_fields = ["sent_back_amount"]
+
+    @staticmethod
+    def is_displayer(player: Player):
+        return player.id_in_group == 2
+    
+    @staticmethod
+    def vars_for_template(player: Player):
+        group = player.group
+
+        tripled_amount = group.sent_amount * C.MULTIPLIER
+        return dict(tripled_amount = tripled_amount)
 
 
 class ResultsWaitPage(WaitPage):
-    pass
+    after_all_players_arrive = set_payoffs
 
 
 class Results(Page):
-    pass
+    """
+    This page displays the earnings of each player
+    """
 
+    @staticmethod
+    def vars_for_template(player: Player):
+        group = player.group
 
-page_sequence = [MyPage, ResultsWaitPage, Results]
+        return dict(tripled_amount = group.sent_amount * C.MULTIPLIER)
+
+page_sequence = [
+    Introduction,
+    Send,
+    SendBackWaitPage,
+    SendBack,
+    ResultsWaitPage,
+    Results
+]
