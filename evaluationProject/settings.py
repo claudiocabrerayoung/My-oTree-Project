@@ -1,11 +1,14 @@
 from os import environ
 
 SESSION_CONFIGS = [
-    # dict(
-    #     name='public_goods',
-    #     app_sequence=['public_goods'],
-    #     num_demo_participants=3,
-    # ),
+     dict(
+         name='myTrustGame',
+         app_sequence=['myTrustGame', 'payment_info'],
+         num_demo_participants=4,
+         NUM_ROUNDS=2,
+         ENDOWMENT=100,
+         MULTIPLIER=3,
+         ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -27,6 +30,18 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
+
+
+ROOMS = [
+    dict(
+        name='TestGroup',
+        display_name='Test Group',
+        participant_label_file='_rooms/testGroup.txt',
+        use_secure_urls=True,
+    ),
+    dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
+]
+
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
