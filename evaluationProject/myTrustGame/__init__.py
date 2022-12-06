@@ -24,6 +24,7 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     sent_amount = models.CurrencyField(
     widget=widgets.RadioSelect,
+    # Here we are gonna introduce a slider for the sent amount by the Trustor
     choices= list(range(0, int(C.ENDOWMENT) + 1, 10)),
     #min = 0,
     #max = C.ENDOWMENT,
