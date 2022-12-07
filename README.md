@@ -17,7 +17,7 @@ Este repositorio albergará los códigos asociados a mi primer proyecto de oTree
 
 #### Frontend
 
-- I created the tables partially. Specifically, I did include correctly the round number and the information about that player who was watching the screen, but not the information for the other participant. In other words, each player was able to watch their results, but no the one of the other one. The reason for this was that I didn't come up with a way to call the secondary player (for each role's case). as I was my approach was to implement a if-statement that had as condition to display a corespondent screen to each player according to their id, and I didn't get any valid identifier to call the secondary player.
+- I created the tables partially. Specifically, I did include correctly the round number and the information about that player who was watching the screen, but not the information for the other participant. In other words, each player was able to watch their results, but no the one of the other one. The reason for this was that I didn't come up with a way to call the secondary player (for each role's case), as my approach was to implement an if-statement that had as its condition to display a corespondent screen to each player if they their corresponding id (1 fort Trustor and 2 for Trustee), and I didn't get any valid identifier to call the secondary player.
 
 - I implement the slider only for the Trustor, as the Trustees amount had as a upper bound the 'sent_amount_BY_P1 * MULTIPLIER' amount, and I couldn't apply a list(range()) conversion to such part in that such part was neither an integer nor a string, but a oTree-column and didn't accept conversions as far as I know.
 
